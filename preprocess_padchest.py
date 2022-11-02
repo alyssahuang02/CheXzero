@@ -29,7 +29,7 @@ from data_process import *
 
 def preprocess_data(data_root):
     labels_path = os.path.join(data_root, 
-                            'PADCHEST_chest_x_ray_images_labels_160K_01.02.19.csv')
+                            'chest_x_ray_images_labels_sample.csv')
     labels = pd.read_csv(labels_path)
     # get filepaths of 2.zip images
     text_file_path = os.path.join(data_root, '2.zip.unzip-l.txt')
@@ -169,6 +169,7 @@ def img_to_h5(
     Returns a list of cxr_paths that were successfully stored in the
     `.h5` file. 
     """
+    print(cxr_paths)
     dset_size = len(cxr_paths)
     proper_cxr_paths = []
     with h5py.File(out_filepath,'w') as h5f:

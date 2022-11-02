@@ -67,7 +67,7 @@ def get_files(directory):
     files = []
     for (dirpath, dirnames, filenames) in os.walk(directory):
         for file in filenames:
-            if file.endswith(".jpg"):
+            if file.endswith(".jpg") or file.endswith(".png"):
                 files.append(os.path.join(dirpath, file))
     return files
 
@@ -100,10 +100,12 @@ def write_report_csv(cxr_paths, txt_folder, out_path):
     txt_reports = []
     for cxr_path in cxr_paths:
         tokens = cxr_path.split('/')
+        if ".ipynb_checkpoints"  in tokens:
+            continue
         study_num = tokens[-2]
         patient_num = tokens[-3]
         patient_group = tokens[-4]
-        txt_report = txt_folder + patient_group + '/' + patient_num + '/' + study_num + '.txt'
+        txt_report = txt_folder + '/' + patient_group + '/' + patient_num + '/' + study_num + '.txt'
         filename = study_num + '.txt'
         f = open(txt_report, 'r')
         s = f.read()
